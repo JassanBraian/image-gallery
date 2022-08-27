@@ -1,0 +1,9 @@
+<h1>Photos</h1>
+
+<% @photos.each do |photo| %>
+    <div>
+        <h2><%= photo.title %> </h2>
+        <%= image_tag photo.image_url %>
+        <%= link_to "Ver mas", photo %>
+    </div>
+<% end %>
