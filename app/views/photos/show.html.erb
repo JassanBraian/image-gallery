@@ -2,4 +2,8 @@
 <div>
 	<h2><%= @photo.title %> </h2>
 	<%= image_tag @photo.image_url %>
+	<div>
+		<%= link_to "Editar", "/photos/#{@photo.id}/edit" %>
+		<%= link_to "Eliminar", @photo, data: { turbo_method: :delete} %>
+	</div>
 </div>

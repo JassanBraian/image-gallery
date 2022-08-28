@@ -10,6 +10,20 @@ class PhotosController < ApplicationController
   def new
   end
 
+  def edit
+    @id = params[:id]
+  end
+
+  def update
+    photo = Photo.find(params[:id])
+    photo.title = params[:photo][:title]
+    photo.image_url = params[:photo][:image_url]
+
+    photo.save
+
+    redirect_to photo
+  end
+
   def create
     photo = Photo.new
 
@@ -18,6 +32,13 @@ class PhotosController < ApplicationController
 
     photo.save
 
-    redirect_to "/photos/#{photo.id}"
+    redirect_to photo
+  end
+
+  def destroy
+    photo = Photo.find(params[:id])
+    photo.destroy
+
+    redirect_to "/photos"
   end
 end
