@@ -3,17 +3,8 @@
 	<h2><%= @photo.title %> </h2>
 	<%= image_tag @photo.image_url %>
 	<div>
-		<%= link_to "Editar", "/photos/#{@photo.id}/edit" %>
-		<%= link_to "Eliminar", @photo, data: { turbo_method: :delete} %>
-		<%= link_to "Eliminar 2", @photo, method: :delete %>
-		<%
-=begin%>
- <%= link_to 'Destroy',  { action: :destroy, id: news.id }, 
-       method: :delete,
-       data: { confirm: "Delete this news item?" } 
-%> 
-<%
-=end%>
+		<%= link_to "Editar", edit_photo_path(@photo) %>
+		<%= button_to "Eliminar", @photo, method: :delete %>
 	</div>
 
 	<br><br><br><br>
