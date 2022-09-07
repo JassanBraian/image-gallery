@@ -1,4 +1,6 @@
 class PhotosController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def index
     @photos = Photo.all
   end
@@ -12,33 +14,44 @@ class PhotosController < ApplicationController
 
   def edit
     @id = params[:id]
+    puts "a1 #{@id}"
   end
 
   def update
+    puts "a2 #{@id}"
     photo = Photo.find(params[:id])
-    photo.title = params[:photo][:title]
-    photo.image_url = params[:photo][:image_url]
-
-    photo.save
+    puts "a3 #{@photo_params}"
+    photo.update(photo_params)
 
     redirect_to photo
   end
 
   def create
-    photo = Photo.new
+    @photo = Photo.new(photo_params)
+    @photo.save
 
-    photo.title = params[:photo][:title]
-    photo.image_url = params[:photo][:image_url]
-
-    photo.save
-
-    redirect_to photo
+    respond_to do |format|
+      format.html { redirect_to @photo }
+      format.json { render json: @photo, status: :created }
+    end
   end
 
   def destroy
+    puts 'oooooooooooo  a5  oooooooooooooooo'
     photo = Photo.find(params[:id])
     photo.destroy
 
-    redirect_to "/photos"
+    #redirect_to('/photos')
+    
+    
+
+    # respond_to do |format|
+    #   format.html { redirect_to action: 'index'}
+    #   format.json { head :no_content }
+    # end
+  end
+
+  private def photo_params
+    params.require(:photo).permit(:title, :image_url)
   end
 end

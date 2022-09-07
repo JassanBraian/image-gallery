@@ -5,5 +5,17 @@
 	<div>
 		<%= link_to "Editar", "/photos/#{@photo.id}/edit" %>
 		<%= link_to "Eliminar", @photo, data: { turbo_method: :delete} %>
+		<%= link_to "Eliminar 2", @photo, method: :delete %>
+		<%
+=begin%>
+ <%= link_to 'Destroy',  { action: :destroy, id: news.id }, 
+       method: :delete,
+       data: { confirm: "Delete this news item?" } 
+%> 
+<%
+=end%>
 	</div>
+
+	<br><br><br><br>
+	<%= link_to "Ir al menu", "/photos" %>
 </div>
