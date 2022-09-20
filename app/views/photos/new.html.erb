@@ -1,13 +1,14 @@
 <p>Intentos: <%=session[:intentos]%> </p>
-<form action="<%= photos_path %>" method="post">
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+<% form_with model: @photo do |form| %>    
     <div>
-        <label for="title"> Titulo </label>
-        <input type="text" name="photo[title]" id="title">
+        <%= form.label :title %>
+        <%= form.text_field :title %>
     </div>
     <div>
-        <label for="image_url"> URL de la foto </label>
-        <input type="url" name="photo[image_url]" id="image_url">
+        <%= form.label :image_url %>
+        <%= form.url_field :image_url %>
     </div>
-    <input type="submit" value="Enviar">
-</form>
+
+    <%= form.submit "Enviar" %>
+<%end%>

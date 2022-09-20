@@ -1,15 +1,15 @@
-<%= form_with(model: @photo) do |form| %>
-  
+<%= form_with model: @photo do |form| %>
+
+  <input type="hidden" name="_method" value="PATCH">
+
   <div>
-    <%= form.label :title, style: "display: block" %>
+    <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
   <div>
-    <%= form.label :image_url, style: "display: block" %>
-    <%= form.text_field :image_url %>
+      <%= form.label :image_url %>
+       <%= form.url_field :image_url %>
   </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
+  <%= form.submit "Enviar" %>
 <% end %>

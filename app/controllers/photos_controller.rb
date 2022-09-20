@@ -11,9 +11,11 @@ class PhotosController < ApplicationController
 
   def new
     session[:intentos] = session[:intentos] ? session[:intentos] + 1 : 1
+    @photo = Photo.new
   end
 
   def edit
+    @photo = Photo.find(params[:id])
   end
 
   def update
