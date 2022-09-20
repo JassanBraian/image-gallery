@@ -11,6 +11,14 @@
   </head>
 
   <body>
-    <%= yield %>
+  
+		<nav>
+		    <li><% link_to "Inicio", root_path %></li>
+		    <li><% link_to "Fotos", photos_path %></li>
+		</nav>
+		
+    <% yield :sidebar_options %>
+
+		<% yield %>
   </body>
 </html>

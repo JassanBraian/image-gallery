@@ -1,7 +1,6 @@
 class PhotosController < ApplicationController
-  # skip_before_action :verify_authenticity_token
-
   before_action :set_photo, only: %i[show edit update destroy]
+  layout "landing"
 
   def index
     @photos = Photo.all
@@ -11,6 +10,7 @@ class PhotosController < ApplicationController
   end
 
   def new
+    session[:intentos] = session[:intentos] ? session[:intentos] + 1 : 1
   end
 
   def edit
@@ -19,23 +19,29 @@ class PhotosController < ApplicationController
   def update
     @photo.update(photo_params)
 
-    redirect_to photo_url(@photo)
+    redirect_to @photo
   end
 
   def create
     @photo = Photo.new(photo_params)
-    @photo.save
 
     respond_to do |format|
-      format.html { redirect_to @photo }
-      format.json { render json: @photo, status: :created }
+      if @photo.save
+        format.html { redirect_to @photo, notice: "Todo salio bien" }
+        format.json { render json: @photo, status: :created }
+      else
+        format.html {
+          redirect_back fallback_location: photos_path,
+                        notice: "Algo salio mal #{@photo.errors.full_messages.to_sentence}"
+        }
+      end
     end
   end
 
   def destroy
     @photo.destroy
 
-    redirect_to photos_url
+    redirect_to photos_path
   end
 
   private def photo_params
