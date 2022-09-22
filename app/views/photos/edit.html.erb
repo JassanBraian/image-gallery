@@ -1,6 +1,11 @@
 <%= form_with model: @photo do |form| %>
 
-  <input type="hidden" name="_method" value="PATCH">
+  <div>
+    <% @tags.each do |tag| %>
+      <%= form.check_box "tag_ids[]", name: "photo[tag_ids]", include_hidden: false %>
+    <% end %>
+  </div>
+
 
   <div>
     <%= form.label :title %>
